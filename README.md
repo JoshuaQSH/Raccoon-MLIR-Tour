@@ -4,7 +4,7 @@ Shout out to Chris Lattner.
 
 Hopefully this tour will help you find the way to quickly jump into MLIR. This repository aims to contain 
 - A simple MLIR pass called `simplepass`, which refers to the modified example of an out-of-tree MLIR pass tour from [crispyberry](https://github.com/crispyberry/MLIR-Pass-Tour). It is an opt-like tool to operate on the SCF dialect (Modified mlir/example/standalone).
-- A Dialect called `Raccoon` used for ML embedding lowering down
+- A Dialect called `Raccoon` used for ML embedding lowering down. You may wonder why `Raccoon`, this black-eyed little cutie was once my nickname XD.
 
 
 Before getting started, we assume you have already built your MLIR under the home directory `./llvm-project`. If not then you can follow the Building guide as well:
