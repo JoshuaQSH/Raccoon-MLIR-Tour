@@ -14,9 +14,19 @@
 			- LowerRaccoonPass.cpp
 			- CMakeLists.txt
 		- `EmbOptimization`
-			- EmbOptimize.cpp
+			- EmbOptimize.cpp [WiP]
 			- CMakeLists.txt
+		- CMakeLists.txt
 	- `Dialect`
+		- `Raccoon`
+			- RaccoonDialect.cpp
+			- RaccoonOps.cpp
+			- CMakeLists.txt
+		- CMakeLists.txt
 	- `Target`: Raccoon -> LLVMIR
+		- `LLVMIR`
+			- ConvertRaccoonToLLVMIR.cpp
+			- CMakeLists.txt
+		- CMakeLists.txt
 	- CMakeLists.txt
 		
