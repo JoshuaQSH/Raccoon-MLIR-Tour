@@ -48,3 +48,11 @@ cmake -G Ninja .. -DMLIR_DIR=$MLIR_PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$LL
 # To build the documentation from the TableGen description of the dialect operations
 cmake --build . --target mlir-doc
 ```
+
+## How to add new Dialect
+MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. 
+- `frontend`: 
+- `midend`: 
+	- `include`
+	- `lib`
+	- CMakeList.txt
