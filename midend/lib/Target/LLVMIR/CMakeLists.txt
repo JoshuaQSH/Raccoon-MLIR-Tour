@@ -1,0 +1,7 @@
+set(LLVM_OPTIONAL_SOURCES
+	ConvertRaccoonToLLVMIR.cpp
+)
+
+add_mlir_translation_library(RaccoonToLLVMIRTranslationRegistration
+	ConvertRaccoonToLLVMIR.cpp
+)
