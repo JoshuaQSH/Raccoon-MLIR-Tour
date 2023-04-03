@@ -1,0 +1,22 @@
+# A Midend for a MLIR Dialect
+- `include`
+	- `Dialect`: All the dialects defination are put into here.
+		- `Raccoon`
+			- RaccoonDialect.h: defination
+			- RaccoonDialect.td: TableGen for Raccoon Dialect
+			- RaccoonOps.h:
+			- RaccoonOps.td:
+			- CMakeLists.txt
+	- CMakeLists.txt
+- `lib`: The implementation of each optimization and lowerpass
+	- `Conversion`
+		- `LowerRaccoon`
+			- LowerRaccoonPass.cpp
+			- CMakeLists.txt
+		- `EmbOptimization`
+			- EmbOptimize.cpp
+			- CMakeLists.txt
+	- `Dialect`
+	- `Target`: Raccoon -> LLVMIR
+	- CMakeLists.txt
+		
