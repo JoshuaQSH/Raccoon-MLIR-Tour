@@ -1,4 +1,7 @@
-# A Midend for a MLIR Dialect
+# A Raccon Dialect process
+- Refers to [MLIR - Define Dialects](https://mlir.llvm.org/docs/DefiningDialects/)
+
+## A Midend for a MLIR Dialect (Raccoon), refers to Buddy-MLIR
 - `include`
 	- `Dialect`: All the dialects defination are put into here.
 		- `Raccoon`
@@ -29,4 +32,5 @@
 			- CMakeLists.txt
 		- CMakeLists.txt
 	- CMakeLists.txt
+
 		
