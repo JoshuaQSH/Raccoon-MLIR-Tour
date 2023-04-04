@@ -1,0 +1,26 @@
+# A Frontend for a MLIR Dialect (Raccoon)
+- `FrontendGen`
+	- `include`
+		- AST.h
+		- Diagnostics.def
+		- Diagnostics.h
+		- Lexer.h
+		- Sema.h
+		- Terminator.def
+		- Terminator.h
+		- Token.def
+		- Token.h
+		- TypeMap.def
+		- Parser.h
+		- CGModule.h
+		- CMakeLists.txt
+	- `lib`
+		- Parser.cpp
+		- Lexer.cpp
+		- CGModule.cpp
+		- Diagnostics.cpp
+		- Sema.cpp
+		- CMakeLists.txt
+	- CMakeLists.txt
+- `Interface`
+- CMakeLists.txt
