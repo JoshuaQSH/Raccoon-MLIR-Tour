@@ -1,0 +1,6 @@
+# copy but exclued the CMakeFiles
+file(COPY .
+	DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+	FILES_MATCHING PATTERN *.cmake
+	PATTERN CMakeFiles EXCLUDE
+)
