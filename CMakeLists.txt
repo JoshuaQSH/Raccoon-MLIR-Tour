@@ -64,6 +64,7 @@ check_toolchain()
 # TODO: Antlr Configuration
 
 # Directory
+# backend copied from Buddy-MLIR
 add_subdirectory(cmake)
 add_subdirectory(frontend)
 add_subdirectory(midend)
