@@ -39,7 +39,7 @@ export LLVM_PREFIX=/path/to/llvm-build-dir
 ```
 
 ## Build
-To build and run the the simplepass example, run:
+### Build and run the the simplepass example
 ```shell
 cd ./simplepass
 mkdir build && cd build
@@ -49,10 +49,24 @@ cmake -G Ninja .. -DMLIR_DIR=$MLIR_PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$LL
 cmake --build . --target mlir-doc
 ```
 
+### Build and run the raccoon-mlir
+```shell
+cd raccoon-mlir
+mkdir build && cd build
+cmake -G Ninja .. \
+		  -DMLIR_DIR=$PWD/../llvm-project/build/lib/cmake/mlir \
+		  -DLLVM_DIR=$PWD/../llvm-project/build/lib/cmake/llvm \
+		  -DLLVM_ENABLE_ASSERTIONS=ON \
+		  -DCMAKE_BUILD_TYPE=RELEASE
+
+ninja check-raccon
+```
+
+
 ## How to add new Dialect
 MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. 
 - `frontend`: 
-- `midend`: 
-	- `include`
-	- `lib`
-	- CMakeList.txt
+- `midend`:
+- `backend`:
+- `tools`:
+- `cmake`:
