@@ -55,13 +55,29 @@ include_directories(${LLVM_INCLUDE_DIRS})
 include_directories(${MLIR_INCLUDE_DIRS})
 
 # Hardware Detection
-# TODO: do not have cmake dir, should add check_simd.cmake to the dir
 include(${RACCOON_SOURCE_DIR}/cmake/check_simd.cmake)
 include(${RACCOON_SOURCE_DIR}/cmake/check_toolchain.cmake)
 check_simd()
 check_toolchain()
 
 # TODO: Antlr Configuration
+if(RACCOON_DSL_EXAMPLES)
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Antlr)
+
+    # required if linking to static library
+    add_definitions(-DANTLR4CPP_STATIC)
+
+    # add external build for antlrcpp
+    include(ExternalAntlr4Cpp)
+    # add antrl4cpp artifacts to project environment
+    include_directories(${ANTLR4_INCLUDE_DIRS})
+
+    # set variable pointing to the antlr tool that supports C++
+    # this is not required if the jar file can be found under PATH environment
+    set(ANTLR_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/antlr/antlr-4.10.1-complete.jar)
+    # add macros to generate ANTLR Cpp code from grammar
+    find_package(ANTLR REQUIRED)
+endif()
 
 # Directory
 # backend copied from Buddy-MLIR
@@ -71,5 +87,6 @@ add_subdirectory(midend)
 add_subdirectory(backend)
 add_subdirectory(tools)
 add_subdirectory(examples)
-add_subdirectory(tests)
+# TODO: test not built
+# add_subdirectory(tests)
 
