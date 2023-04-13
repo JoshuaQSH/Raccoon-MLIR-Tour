@@ -19,7 +19,7 @@ namespace rocketraccoon {
 	void registerRaccoonToLLVMIRTranslation() {
 		// translation from an MLIR in the Raccoon toolchain to LLVM IR
 		TranslateFromMLIRRegistration registration(
-				"raccoon-to-llvmir", "translate MLIR from buddy toolchain to LLVM IR",
+				"raccoon-to-llvmir", "translate MLIR from raccoon toolchain to LLVM IR",
 				[](ModuleOp module, raw_ostream &output) {
 					// returns either a success or failure status of the translation
 					// prints the LLVM module to the output stream.
@@ -42,7 +42,7 @@ namespace rocketraccoon {
 					registerOpenMPDialectTranslation(registry);
 					registerROCDLDialectTranslation(registry);
 					registerX86VectorDialectTranslation(registry);
-					// Register translation in buddy project. [WiP]
+					// Register translation in raccoon project. [WiP]
 				});
 	}
 } // namespace rocketraccoon
