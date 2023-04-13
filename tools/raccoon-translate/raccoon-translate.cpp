@@ -19,7 +19,7 @@ namespace rocketraccoon {
 
 int main(int argc, int** argv) {
 	mlir::registerAllTranslations();
-	buddy::registerRaccoonToLLVMIRTranslation();
+	rocketraccoon::registerRaccoonToLLVMIRTranslation();
 
 	return failed(mlir::mlirTranslateMain(argc, argv, "Raccoon Translation Tool"));
 }

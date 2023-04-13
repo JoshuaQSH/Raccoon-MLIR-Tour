@@ -21,7 +21,7 @@ set(LLVM_LINK_COMPONENTS
 	RaccoonTarget
 )
 
-add_llvm_tool(buddy-llc
+add_llvm_tool(raccoon-llc
 	${LLVM_PROJECT_SOURCE_DIR}/llvm/tools/llc/llc.cpp
 	DEPENDS
 	raccoon_intrinsics_gen
