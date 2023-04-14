@@ -30,12 +30,20 @@ cmake --build . --target check-mlir
 # For the python Binding
 python -m pip install --upgrade pip
 python -m pip install -r mlir/python/requirements.txt
+# Add MLIR Python bindings to your Python path.
 export PYTHONPATH=$(cd build && pwd)/tools/mlir/python_packages/mlir_core
 
 # Should be `~/llvm-project/build`
 export MLIR_PREFIX=/path/to/mlir/ 
 # Shoudl be `~/llvm-project/build`
 export LLVM_PREFIX=/path/to/llvm-build-dir
+```
+
+Test the MLIR python bindings environment.
+```shell
+$ python
+>>> from mlir.ir import Context, Module
+>>> ...
 ```
 
 ## Build
@@ -49,7 +57,7 @@ cmake -G Ninja .. -DMLIR_DIR=$MLIR_PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$LL
 cmake --build . --target mlir-doc
 ```
 
-### Build and run the raccoon-mlir
+### Build and run the raccoon-mlir [WiP]
 ```shell
 cd raccoon-mlir
 mkdir build && cd build
@@ -61,6 +69,30 @@ cmake -G Ninja .. \
 
 ninja
 ninja check-raccoon
+```
+
+## With PyTorch and Tensorflow installed
+```shell
+conda create -n torchdynamo python=3.8
+conda activate torchdynamo
+pip3 install torch torchvision torchaudio
+```
+
+```shell
+conda create -n tf2 python=3.8
+conda activate tf2
+# TensorFlow 2 packages require a pip version >19.0
+pip install tensorflow
+```
+
+## MLIR as TorchDynamo and TF Custom Backend
+Assume you have already installed pytorch (version >= stable 2.0.0)
+```shell
+pip install tabulate
+cd Raccoon-MLIR-Tour/embedding_exam/torchdynamo
+
+# Run the example
+python arith_add.py
 ```
 
 
