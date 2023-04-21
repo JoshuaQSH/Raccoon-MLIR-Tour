@@ -1,51 +1,47 @@
-// TODO: A simple embeddingbag, similar to Torch-EmbeddingBag
+module {
+  func.func private @printMemrefF32(memref<*xf32>)
+  
+  func.func @embedding_lookup(%a : memref<1x?xi64>, %b : memref<?x?xf32>,  %c : memref<1x?xf32>) {
+    linalg.matmul
+      ins(%a, %b: memref<1x?xi64>, memref<?x?xf32>)
+      outs(%c : memref<1x?xf32>)
+      return
+  }
 
-func.func @embedding_bag_layer(%input: tensor<?x?xi32>, %offsets: tensor<?xi32>, %embedding_weights: tensor<?x?xf32>) -> tensor<?x?xf32> {
-  // EmbeddingBag operation will be implemented here
+  func.func @main(){
+    // Set up dims.
+	// %cC = arith.constant 1 : index 
+    %cM = arith.constant 4 : index
+    %cN = arith.constant 4 : index
+
+    // Set up init value
+    %cf1 = arith.constant 3.0 : f32
+    %cf2 = arith.constant 1 : i64
+    
+	%A = memref.alloc(%cM) : memref<1x?xi64>
+    %B = memref.alloc(%cM, %cN) : memref<?x?xf32>
+    %C = memref.alloc(%cN) : memref<1x?xf32>
+
+    linalg.fill
+      ins(%cf2 : i64)
+      outs(%A:memref<1x?xi64>)
+
+    linalg.fill
+      ins(%cf1 : f32)
+      outs(%B:memref<?x?xf32>)
+
+    linalg.fill
+      ins(%cf1 : f32)
+      outs(%C:memref<1x?xf32>)
+    
+    call @embedding_lookup(%A, %B, %C) : (memref<1x?xi64>, memref<?x?xf32>, memref<1x?xf32>) -> ()
+    %print_C = memref.cast %C : memref<1x?xf32> to memref<*xf32>
+    call @printMemrefF32(%print_C) : (memref<*xf32>) -> ()
+    
+    memref.dealloc %C : memref<1x?xf32>
+    memref.dealloc %B : memref<?x?xf32>
+    memref.dealloc %A : memref<1x?xi64>
+
+    return
+  }
 }
-
-%result = linalg.generic
-  ins(%embedding_weights, %input, %offsets : tensor<?x?xf32>, tensor<?x?xi32>, tensor<?xi32>)
-  outs(%output : tensor<?x?xf32>)
-  indexing_maps = [
-    affine_map<(d0, d1, d2) -> (d0, d1)>,
-    affine_map<(d0, d1, d2) -> (d2)>,
-    affine_map<(d0, d1, d2) -> (d1)>
-  ]
-  iterator_types = ["parallel", "reduction", "parallel"]
-  body = [{
-    ^bb0(%a: f32, %b: f32, %c: f32):
-      %sum = addf %a, %b : f32
-      linalg.yield %sum : f32
-  }]
-
-  %lengths = linalg.generic
-  ins(%offsets : tensor<?xi32>)
-  outs(%lengths_out : tensor<?xi32>)
-  indexing_maps = [
-    affine_map<(d0) -> (d0)>,
-    affine_map<(d0) -> (d0)>
-  ]
-  iterator_types = ["parallel"]
-  body = [{
-    ^bb0(%a: i32, %b: i32):
-      %diff = subi %a, %b : i32
-      linalg.yield %diff : i32
-  }]
-
-  %normalized = linalg.generic
-  ins(%result, %lengths : tensor<?x?xf32>, tensor<?xi32>)
-  outs(%normalized_out : tensor<?x?xf32>)
-  indexing_maps = [
-    affine_map<(d0, d1) -> (d0, d1)>,
-    affine_map<(d0, d1) -> (d0)>,
-    affine_map<(d0, d1) -> (d0, d1)>
-  ]
-  iterator_types = ["parallel", "parallel"]
-  body = [{
-    ^bb0(%a: f32, %b: i32, %c: f32):
-      %div = divf %a, %b : f32
-      linalg.yield %div : f32
-  }]
-
-  return %normalized : tensor<?x?xf32>
