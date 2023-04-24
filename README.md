@@ -47,14 +47,19 @@ $ python
 ```
 
 ## Build
-### Build and run the the simplepass example
+### Build and run the simplepass example
 ```shell
-cd ./simplepass
+cd ./standalone-templates/simplepass
 mkdir build && cd build
 cmake -G Ninja .. -DMLIR_DIR=$MLIR_PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$LLVM_PREFIX/bin/llvm-lit
 
 # To build the documentation from the TableGen description of the dialect operations
 cmake --build . --target mlir-doc
+```
+### Build and run the standalone-opt example
+```shell
+cd ./standalone-templates/standalone
+./build_and_run.sh
 ```
 
 ### Build and run the raccoon-mlir [WiP]
