@@ -58,7 +58,7 @@ cmake --build . --target mlir-doc
 ```
 ### Build and run the standalone-opt example
 ```shell
-cd ./standalone-templates/standalone
+cd ./standalone-templates/standalone-opt
 ./build_and_run.sh
 ```
 
