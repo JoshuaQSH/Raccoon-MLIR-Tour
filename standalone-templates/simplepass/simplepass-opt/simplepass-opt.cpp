@@ -1,4 +1,4 @@
-#include "simplepass/Simplepass/Pass.h"
+#include "Simplepass/Simplepass.h"
 
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/MLIRContext.h"
@@ -32,23 +32,24 @@ static cl::opt<std::string> outputFilename("o",
                                           llvm::cl::init("-"));
 static cl::opt<bool>
     CustomAttrToSCFPass("customattr-to-scf-pass", cl::init(true),
-                       cl::desc("Turn on customattr-to-scf-pass"));i
+                       cl::desc("Turn on customattr-to-scf-pass"));
 
 int main(int argc, char **argv) {
     // Register all MLIR dialects and passes.
     mlir::registerAllPasses();
 
     // Parse command line arguments
-	mlir::DialectRegister registry;
+	mlir::DialectRegistry registry;
 
-	mlir::RegisterAllDialects(registry);
+	mlir::registerAllDialects(registry);
 	
 	// mlir::MLIRContext - > used to create and manage MLIR objects and their associated data
 	// managing a sequence of passes that operate on an MLIR module or function
+	MLIRContext context(registry);
 	mlir::PassManager pm(&context);
 
 	// to register command-line options for the MLIR assembler printer
-	mlir::resgisterAsmPrinterCLOptions();
+	mlir::registerAsmPrinterCLOptions();
 	// to register command-line options related to the MLIR context, which is used to manage the MLIR data and objects.
 	mlir::registerMLIRContextCLOptions();
 	// to register command-line options related to the MLIR pass manager, for optimizing and transforming MLIR programs
@@ -68,10 +69,10 @@ int main(int argc, char **argv) {
 
 	llvm::SourceMgr sourceMgr;
 	// Add source buffer to the source contents
-	sourceMgr.AddNewSourceBuffer(std::move(*fileOrErr), llvm.SMLoc());
+	sourceMgr.AddNewSourceBuffer(std::move(*fileOrErr), llvm::SMLoc());
 
 	// source file should be parsed into an MLIR module operation
-	auto module = mlir.parseSourceFile<mlir::ModuleOp>(sourceMgr, &context);
+	auto module = mlir::parseSourceFile<mlir::ModuleOp>(sourceMgr, &context);
 	if(!module) {
 		llvm::errs() << "Error loading input file\n";
 		return 1;
@@ -80,20 +81,20 @@ int main(int argc, char **argv) {
 	// Add the custom attribute pass to the pass manager.
 	if(CustomAttrToSCFPass) {
 		llvm::errs() << "In\n";
-		pm.addPass(mlir::Simplepass::createCustomAttrToSCFPass());
+		pm.addPass(mlir::simplepass::createCustomAttrToSCFPass());
 
 		// Run the pass on the module
-		if (failed(pm.run(*moudle))) {
+		if (failed(pm.run(*module))) {
 			llvm::errs() << "Error running pass\n";
 			return 1;
 		}
 	}
 
 	// Write the output file
-	std::error_code_error;
+	std::error_code error;
 	llvm::raw_fd_ostream output(outputFilename, error, llvm::sys::fs::OF_Text);
 	if(error) {
-		llvm::errs << "Error opening output file: " << error.message() << "\n";
+		llvm::errs() << "Error opening output file: " << error.message() << "\n";
 		return 1;
 	}
 	module->print(output);

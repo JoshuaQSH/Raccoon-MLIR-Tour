@@ -3,13 +3,13 @@
 
 #include "mlir/Pass/Pass.h"
 
-#include "simplepass/Simplepass/Simplepass.h"
+#include "Simplepass/Simplepass.h"
 
 namespace mlir {
 	namespace simplepass {
 
 #define GEN_PASS_CLASSES
-#include "simplepass/Simplepass/Simplepass.h.inc"
+#include "Simplepass/Simplepass.h.inc"
 
 	} // namespace simplepass
 } // namespace mlir

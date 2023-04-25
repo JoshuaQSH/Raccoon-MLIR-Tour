@@ -3,7 +3,7 @@
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinOps.h"
 
-#include "simplepass/Simplepass/Simplepass.h"
+#include "Simplepass/Simplepass.h"
 
 using namespace mlir;
 using namespace simplepass;
@@ -36,7 +36,7 @@ void CustomAttrToSCFPass::runOnOperation() {
 			});
 }
 
-std::unique_ptr<Simplepass> mlir::simplepass::createCustomAttrToSCFPass() {
+std::unique_ptr<Pass> mlir::simplepass::createCustomAttrToSCFPass() {
 	return std::make_unique<CustomAttrToSCFPass>();
 }
 
