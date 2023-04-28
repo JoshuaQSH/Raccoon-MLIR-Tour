@@ -1,10 +1,7 @@
-<p align="center">
-<a target="_blank" href="https://github.com/JoshuaQSH/Raccoon-MLIR-Tour">
-	<img src="https://img.shields.io/badge/Raccoon-V0.1-brightgreen" ></img>
-	</a>
-</p>
-
 # An easy tour towards MLIR
+[![Maintenance](https://img.shields.io/badge/Raccoon-V0.1-brightgreen)](https://github.com/JoshuaQSH/Raccoon-MLIR-Tour)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-YES-green.svg)](https://github.com/JoshuaQSH/Raccoon-MLIR-Tour)
+
 Shout out to Chris Lattner.
 [Brief Introduction of MLIR in Chinese](https://zhuanlan.zhihu.com/p/442140282)
 
