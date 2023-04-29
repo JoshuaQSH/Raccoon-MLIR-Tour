@@ -106,8 +106,11 @@ python arith_add.py
 
 ## How to add new Dialect
 MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. 
-- `frontend`: 
-- `midend`:
-- `backend`:
-- `tools`:
-- `cmake`:
+- `frontend`: Takes a DL model from existing DL frameworks as input, and then transforms
+the model into the computation graph representation (e.g., graph IR). The frontend needs to
+implement various format transformations to support the diverse formats in different frameworks.
+- `midend`: Transforms the high-level IR into low-level IR and performs hardware-specific
+optimizations. Transform the high-level IR to third-party toolchains such as LLVM IR to utilize the existing infrastructures for general-purpose optimizations and code generation. (auto-scheduling and auto-tuning can happen here).
+- `backend`: Low level IR, LLVM IR for example. The optimized low-level IR is compiled using JIT or AOT to generate codes for different hardware targets. 
+- `tools`: Toolchain
+- `cmake`: CMaketest file
