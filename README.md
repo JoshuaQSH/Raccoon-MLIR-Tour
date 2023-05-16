@@ -109,8 +109,10 @@ MLIR offers a powerful declaratively specification mechanism via [TableGen](http
 A few notes in out-of-tree MLIR CMake file:
 - `LLVM_EXTERNAL_PROJECTS`: defines the external projects to be built
 - `LLVM_EXTERNAL_STANDALONE_DIALECT_SOURCE_DIR`: defines the source code location
-- 
 
+Since MLIR evolves fast, it is possible that it may fail to build the project with a newer LLVM.
+
+Other files:
 - `frontend`: Takes a DL model from existing DL frameworks as input, and then transforms
 the model into the computation graph representation (e.g., graph IR). The frontend needs to
 implement various format transformations to support the diverse formats in different frameworks.
@@ -118,4 +120,13 @@ implement various format transformations to support the diverse formats in diffe
 optimizations. Transform the high-level IR to third-party toolchains such as LLVM IR to utilize the existing infrastructures for general-purpose optimizations and code generation. (auto-scheduling and auto-tuning can happen here).
 - `backend`: Low level IR, LLVM IR for example. The optimized low-level IR is compiled using JIT or AOT to generate codes for different hardware targets. 
 - `tools`: Toolchain
+- `build_tools`: llvm version file and build tools for this project. Since MLIR evolves fast, it is possible that EmitC fails to build with a newer LLVM.
 - `cmake`: CMaketest file
+
+Using your Dialect in other Projects
+- Build all dialects via the external projects mechanism, for example see torch-mlir: `LLVM_EXTERNAL_PROJECTS="torch-mlir;torch-mlir-dialects`
+- You can also use CMake’s `External_Project_Add()`
+- You can add projects via `add_sudirectory()`, for example like [mlir-emitc](https://github.com/marbre/mlir-emitc): `add_subdirectory(third_party/mlir-hlo EXCLUDE_FROM_ALL)`
+- For `add_subdirectory()` a new CMake option can be introduced: `option(EMITC_BUILD_EMBEDDED "Build EmitC as part of another project"OFF)`
+
+
