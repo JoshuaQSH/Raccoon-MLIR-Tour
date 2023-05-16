@@ -105,7 +105,12 @@ python arith_add.py
 
 
 ## How to add new Dialect
-MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. 
+MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. We follow the talk given by [Marius Brehler](https://github.com/marbre), please refer [here](https://fosdem.org/2023/schedule/event/mlirdialect/):
+A few notes in out-of-tree MLIR CMake file:
+- `LLVM_EXTERNAL_PROJECTS`: defines the external projects to be built
+- `LLVM_EXTERNAL_STANDALONE_DIALECT_SOURCE_DIR`: defines the source code location
+- 
+
 - `frontend`: Takes a DL model from existing DL frameworks as input, and then transforms
 the model into the computation graph representation (e.g., graph IR). The frontend needs to
 implement various format transformations to support the diverse formats in different frameworks.
