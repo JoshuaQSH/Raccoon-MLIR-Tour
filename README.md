@@ -22,12 +22,18 @@ cmake -G Ninja ../llvm \
 	-DLLVM_ENABLE_PROJECTS=mlir \
 	-DLLVM_BUILD_EXAMPLES=ON \
 	-DLLVM_TARGETS_TO_BUILD="X86;NVPTX;AMDGPU" \
+    -DMLIR_ENABLE_CUDA_RUNNER=ON \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DLLVM_ENABLE_ASSERTIONS=ON \
 	-DCMAKE_C_COMPILER=clang \
 	-DCMAKE_CXX_COMPILER=clang++ \
 	-DLLVM_ENABLE_LLD=ON \
+	-DLLVM_ENABLE_RTTI=ON \
+	-DLLVM_INSTALL_UTILS=ON \
+	-DMLIR_INCLUDE_INTEGRATION_TESTS=ON \
 
+# ninja -j8
+# sudo ninja install
 cmake --build . --target check-mlir
 
 # For the python Binding
