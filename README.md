@@ -110,6 +110,61 @@ python arith_add.py
 ```
 
 
+## With OpenAI Triton
+```shell
+# pybind11 required
+pip install pytest
+git clone https://github.com/pybind/pybind11.git
+cd pybind11
+mkdir build
+cd build
+cmake ..
+make check -j 8
+sudo make install
+
+git clone https://github.com/openai/triton.git
+pip install ninja cmake wheel; # build-time dependencies
+
+# Find the match version,  Check python/setup.py for a line like (2023/09/28)
+# version = "llvm-17.0.0-c5dede880d17"
+
+# With the LLVM correct commit-ID install
+git clone https://github.com/llvm/llvm-project
+cd llvm-project 
+git checkout c5dede880d17
+mkdir build 
+cd build
+
+cmake -G Ninja ../llvm \
+		  -DLLVM_ENABLE_PROJECTS=mlir \
+		  -DLLVM_BUILD_EXAMPLES=ON \
+		  -DLLVM_TARGETS_TO_BUILD="X86;NVPTX;RISCV;AMDGPU" \
+		  -DMLIR_ENABLE_CUDA_RUNNER=ON \
+		  -DCMAKE_BUILD_TYPE=Release \
+		  -DLLVM_ENABLE_ASSERTIONS=ON \
+		  -DCMAKE_C_COMPILER=clang \
+		  -DCMAKE_CXX_COMPILER=clang++ \
+		  -DLLVM_ENABLE_RTTI=ON \
+		  -DLLVM_INSTALL_UTILS=ON \
+		  -DMLIR_INCLUDE_INTEGRATION_TESTS=ON \
+		  -DMLIR_ENABLE_BINDINGS_PYTHON=ON
+
+cmake --build . --target check-mlir
+
+# For the python Binding
+python -m pip install --upgrade pip
+python -m pip install -r mlir/python/requirements.txt
+export PYTHONPATH=$(cd build && pwd)/tools/mlir/python_packages/mlir_core
+
+# Return to Triton
+cd Triton
+vim CMakeLists.txt (option(TRITON_BUILD_PYTHON_MODULE "Build Python Triton bindings" ON))
+mkdir build 
+cd build
+cmake ..
+make -j8
+```
+
 ## How to add new Dialect
 MLIR offers a powerful declaratively specification mechanism via [TableGen](https://llvm.org/docs/TableGen/ProgRef.html), a generic language with tooling to maintain records of domain-specific information. We follow the talk given by [Marius Brehler](https://github.com/marbre), please refer [here](https://fosdem.org/2023/schedule/event/mlirdialect/):
 A few notes in out-of-tree MLIR CMake file:
