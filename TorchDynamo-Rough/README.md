@@ -1,14 +1,11 @@
 # TorchDynamo
 [TorchDynamo](https://pytorch.org/docs/stable/dynamo/index.html) is a Python-level JIT compiler designed to make unmodified PyTorch programs faster. TorchDynamo hooks into the frame evaluation API in CPython ([PEP 523](https://peps.python.org/pep-0523/)) to dynamically modify Python bytecode right before it is executed. 
 
+TorchInductor is one of the backends supported by [TorchDynamo Graph](https://pytorch.org/docs/stable/fx.html) (FX Graph) into Triton for GPUs or [C++/OpenMP](https://www.openmp.org/) for CPUs. 
+
 - Rewrites the python bytecode
 - Torch OP -> FX Graph (through bytecode analysis)
 	- JIT compiled into a customizable backend
-
-~
-~ TorchInductor is one of the backends supported by [TorchDynamo Graph](https://pytorch.org/docs/stable/fx.html) (FX Graph) into Triton for GPUs or [C++/OpenMP](https://www.openmp.org/) for CPUs. 
-~
-
 - TorchDynamo supports many different backends but inductor specifically works by generating [Triton](https://github.com/openai/triton) kernels.
 
 
