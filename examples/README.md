@@ -1,3 +1,8 @@
+# Updates 
+Last edited: [28/09/2023] by [S.Qiu]
+
+- Might need a patch for `--convert-memref-to-llvm`, currently there is no pass for `-convert-memref-to-llvm`, instead, consider using `--convert-memref-to-spirv` - [WiP]
+
 # Examples
 Show how to use the passes and the interfaces in this tour. The following examples are provided:
 
