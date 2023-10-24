@@ -49,7 +49,8 @@ scf-parallel-run:
 		-arith-expand \
         -convert-async-to-llvm \
         -convert-scf-to-cf \
-        -convert-memref-to-llvm \
+        -convert-cf-to-llvm \
+		-finalize-memref-to-llvm \
         -convert-func-to-llvm \
         -reconcile-unrealized-casts |\
     ${MLIR_CPU_RUNNER} ${OPT_FLAG} -e main -entry-point-result=void \
