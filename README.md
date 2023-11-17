@@ -17,24 +17,25 @@ Before getting started, we assume you have already built your MLIR under the hom
 git clone https://github.com/llvm/llvm-project.git
 mkdir llvm-project/build
 cd llvm-project/build
+
 # Also, remember to turn MLIR_ENABLE_BINDINGS_PYTHON to ON
 cmake -G Ninja ../llvm \
-	-DLLVM_ENABLE_PROJECTS=mlir \
-	-DLLVM_BUILD_EXAMPLES=ON \
-	-DLLVM_TARGETS_TO_BUILD="X86;NVPTX;AMDGPU" \
-    -DMLIR_ENABLE_CUDA_RUNNER=ON \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DLLVM_ENABLE_ASSERTIONS=ON \
-	-DCMAKE_C_COMPILER=clang \
-	-DCMAKE_CXX_COMPILER=clang++ \
-	-DLLVM_ENABLE_LLD=ON \
-	-DLLVM_ENABLE_RTTI=ON \
-	-DLLVM_INSTALL_UTILS=ON \
-	-DMLIR_INCLUDE_INTEGRATION_TESTS=ON \
+    -DLLVM_ENABLE_PROJECTS="mlir;clang" \
+    -DLLVM_TARGETS_TO_BUILD="host;RISCV;X86;NVPTX;AMDGPU" \
+    -DLLVM_ENABLE_ASSERTIONS=ON \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
+    -DPython3_EXECUTABLE=$(which python3) \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
+    -DLLVM_ENABLE_LLD=ON \
+    -DLLVM_ENABLE_RTTI=ON \
+    -DLLVM_INSTALL_UTILS=ON \
+    -DMLIR_INCLUDE_INTEGRATION_TESTS=ON
 
-# ninja -j8
-# sudo ninja install
-cmake --build . --target check-mlir
+sudo ninja install
+ninja -j8
+# cmake --build . --target check-mlir
 
 # For the python Binding
 python -m pip install --upgrade pip
