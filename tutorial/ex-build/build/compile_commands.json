@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/shenghao/Raccoon-MLIR-Tour/tutorial/ex2/build",
+  "command": "/home/shenghao/anaconda3/envs/torch-source/bin/g++ -D_DEBUG -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/home/shenghao/llvm-project/llvm/include -I/home/shenghao/llvm-project/build/include -I/home/shenghao/llvm-project/mlir/include -I/home/shenghao/llvm-project/build/tools/mlir/include -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/shenghao/anaconda3/envs/torch-source/include -fPIC -fno-semantic-interposition -fvisibility-inlines-hidden -Werror=date-time -fno-lifetime-dse -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wno-missing-field-initializers -Wimplicit-fallthrough -Wno-class-memaccess -Wno-redundant-move -Wno-pessimizing-move -Wno-noexcept-type -Wdelete-non-virtual-dtor -Wsuggest-override -Wno-comment -Wno-misleading-indentation -Wctad-maybe-unsupported -ffunction-sections -fdata-sections -std=gnu++17 -g -UNDEBUG -o CMakeFiles/ex-build.dir/ex-build.cpp.o -c /home/shenghao/Raccoon-MLIR-Tour/tutorial/ex2/ex-build.cpp",
+  "file": "/home/shenghao/Raccoon-MLIR-Tour/tutorial/ex2/ex-build.cpp",
+  "output": "CMakeFiles/ex-build.dir/ex-build.cpp.o"
+}
+]
